@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Events;
+using Domain.Interfaces;
 using MediatR;
 
 namespace Application.Commands
@@ -20,7 +21,7 @@ namespace Application.Commands
             book.Author = command.Author;
             var res = await _repo.UpdateAsync(book);
 
-            await book.Submit();
+            await SlimMessageBus.MessageBus.Current.Publish(new BookSavedEvent(book));
             return res;
         }
     }

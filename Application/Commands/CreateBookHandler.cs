@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Events;
 using Domain.Interfaces;
 using MediatR;
 
@@ -24,7 +25,7 @@ namespace Application.Commands
             // Uncomment here to test error handling
             //throw new Exception("Something went wrong during creating a book");
 
-            await res.Submit();
+            await SlimMessageBus.MessageBus.Current.Publish(new BookSavedEvent(res));
 
             return res;
         }
