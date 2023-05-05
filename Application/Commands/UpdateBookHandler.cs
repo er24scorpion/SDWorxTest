@@ -1,8 +1,7 @@
-﻿using Application.Commands;
-using Domain.Interfaces;
+﻿using Domain.Interfaces;
 using MediatR;
 
-namespace Application.Handlers
+namespace Application.Commands
 {
     public class UpdateBookHandler : IRequestHandler<UpdateBookCommand, int>
     {
@@ -20,7 +19,7 @@ namespace Application.Handlers
             book.Title = command.Title;
             book.Author = command.Author;
             var res = await _repo.UpdateAsync(book);
-            
+
             await book.Submit();
             return res;
         }

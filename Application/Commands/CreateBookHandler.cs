@@ -1,9 +1,8 @@
-﻿using Application.Commands;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Interfaces;
 using MediatR;
 
-namespace Application.Handlers
+namespace Application.Commands
 {
     public class CreateBookHandler : IRequestHandler<CreateBookCommand, Book>
     {

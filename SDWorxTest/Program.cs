@@ -1,8 +1,11 @@
 using API.Exceptions;
+using Application.Behaviors;
+using Application.Commands;
 using Application.Handlers;
 using Domain.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using SlimMessageBus.Host;
@@ -24,7 +27,10 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateBookHandler).Assembly));
+builder.Services.AddMediatR(cfg => {
+    cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
+    cfg.RegisterServicesFromAssembly(typeof(CreateBookHandler).Assembly);
+});
 builder.Services.AddDbContext<RepositoryContext>(
     opt => opt.UseInMemoryDatabase("Library"));
 

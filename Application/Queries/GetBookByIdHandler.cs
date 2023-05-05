@@ -1,9 +1,8 @@
-﻿using Application.Queries;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Interfaces;
 using MediatR;
 
-namespace Application.Handlers
+namespace Application.Queries
 {
     public class GetBookByIdHandler : IRequestHandler<GetBookByIdQuery, Book>
     {

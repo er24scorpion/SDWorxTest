@@ -1,8 +1,7 @@
-﻿using Application.Commands;
-using Domain.Interfaces;
+﻿using Domain.Interfaces;
 using MediatR;
 
-namespace Application.Handlers
+namespace Application.Commands
 {
     public class DeleteBookHandler : IRequestHandler<DeleteBookCommand, int>
     {
