@@ -22,9 +22,6 @@ namespace Application.Commands
                 Author = command.Author
             });
 
-            // Uncomment here to test error handling
-            //throw new Exception("Something went wrong during creating a book");
-
             await SlimMessageBus.MessageBus.Current.Publish(new BookSavedEvent(res));
 
             return res;

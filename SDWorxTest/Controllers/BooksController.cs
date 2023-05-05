@@ -64,5 +64,16 @@ namespace SDWorxTest.Controllers
         {
             return Ok(await _mediator.Send(new DeleteBookCommand(id)));
         }
+
+        // GET: api/throwError
+        [HttpGet("/throwError")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ThrowError()
+        {
+            // should throw an error
+            await _mediator.Send(new ErrorQuery());
+
+            return Ok();
+        }
     }
 }

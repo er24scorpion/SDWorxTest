@@ -1,16 +1,11 @@
 ﻿using MediatR;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Application.Behaviors
 {
-    public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : notnull
+    public class LoggingBehavior<TRequest, TResponse> 
+        : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
     {
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
@@ -30,9 +25,11 @@ namespace Application.Behaviors
                 }
                 catch (NotSupportedException)
                 {
+                    // catching any serialization errors
                     Log.Information($"[Serialization ERROR] {requestNameWithGuid} Could not serialize the request.");
                 }
 
+                // if any errors happen, ExceptionHandler will take care of it
                 response = await next();
             }
             finally
