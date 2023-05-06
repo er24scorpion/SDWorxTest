@@ -2,6 +2,9 @@
 
 namespace Domain.Interfaces
 {
+    /// <summary>
+    /// CRUD operations
+    /// </summary>
     public interface IBookRepository
     {
         public Task<List<Book>> GetListAsync();

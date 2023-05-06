@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace Infrastructure.Data
 {
+    /// <summary>
+    /// ID incrementing generator for in-memory database
+    /// (in case of relational db, that would happend on DB level)
+    /// </summary>
     public class IdValueGenerator : ValueGenerator<int>
     {
         private int _current;

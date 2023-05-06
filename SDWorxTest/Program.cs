@@ -5,7 +5,6 @@ using Application.Handlers;
 using Domain.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using SlimMessageBus.Host;
@@ -13,14 +12,7 @@ using SlimMessageBus.Host.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// logging
-builder.Host.UseSerilog();
-
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .CreateLogger();
-
-Log.Information("Starting up");
+ConfigureLogging(builder);
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -31,8 +23,11 @@ builder.Services.AddMediatR(cfg => {
     cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
     cfg.RegisterServicesFromAssembly(typeof(CreateBookHandler).Assembly);
 });
+
+// Using in memory DataBase, seeding data is below
 builder.Services.AddDbContext<RepositoryContext>(
     opt => opt.UseInMemoryDatabase("Library"));
+
 
 builder.Services.AddSlimMessageBus(mbb =>
 {
@@ -73,3 +68,15 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
+static void ConfigureLogging(WebApplicationBuilder builder)
+{
+    // logging
+    builder.Host.UseSerilog();
+
+    Log.Logger = new LoggerConfiguration()
+        .WriteTo.Console()
+        .CreateLogger();
+
+    Log.Information("Starting up");
+}

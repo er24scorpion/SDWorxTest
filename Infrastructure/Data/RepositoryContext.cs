@@ -11,6 +11,7 @@ namespace Infrastructure.Data
         {
             _ = _ = modelBuilder.Entity<Book>(book =>
             {
+                // Generating ID after adding a record to the db
                 book.Property(p => p.Id).HasValueGenerator<IdValueGenerator>();
             });
         }

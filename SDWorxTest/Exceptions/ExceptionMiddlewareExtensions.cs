@@ -7,7 +7,6 @@ namespace API.Exceptions
 {
     public static class ExceptionMiddlewareExtensions
     {
-        // To try it out - uncomment Application.Handlers.CreateBookHandler:line 25
         public static void ConfigureExceptionHandler(this IApplicationBuilder app)
         {
             app.UseExceptionHandler(appError =>

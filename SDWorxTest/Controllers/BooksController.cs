@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SDWorxTest.Controllers
 {
+    /// <summary>
+    /// Books Controller with CRUD operations and ThrowError endpoint to test error handling
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class BooksController : ControllerBase
