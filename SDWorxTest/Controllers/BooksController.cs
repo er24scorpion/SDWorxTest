@@ -43,12 +43,12 @@ namespace SDWorxTest.Controllers
 
         // PUT: api/Books/5
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> PutBook(int id, Book book)
         {
-            return Ok(await _mediator.Send(new UpdateBookCommand(id, book.Title, book.Author)));
+            var res = await _mediator.Send(new UpdateBookCommand(id, book.Title, book.Author));
+            return res == 1 ? Ok() : BadRequest();
         }
 
         // POST: api/Books
@@ -61,11 +61,13 @@ namespace SDWorxTest.Controllers
 
         // DELETE: api/Books/5
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteBook(int id)
         {
-            return Ok(await _mediator.Send(new DeleteBookCommand(id)));
+            var res = await _mediator.Send(new DeleteBookCommand(id));
+            return res == 1 ? Ok() : BadRequest();
         }
 
         // GET: api/throwError
